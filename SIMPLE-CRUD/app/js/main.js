@@ -1,6 +1,4 @@
-System.register(['angular2/platform/browser', './my-component/car-master.component'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/platform/browser', './my-component/car-master.component'], function(exports_1) {
     var browser_1, car_master_component_1;
     return {
         setters:[

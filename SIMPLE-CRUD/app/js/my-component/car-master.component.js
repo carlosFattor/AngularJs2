@@ -1,6 +1,4 @@
-System.register(['angular2/core', './car-detail.component'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', './car-detail.component', '../my-services/car-service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,8 +8,8 @@ System.register(['angular2/core', './car-detail.component'], function(exports_1,
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, car_detail_component_1;
-    var CarComponent, Cars;
+    var core_1, car_detail_component_1, car_service_1;
+    var CarComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -19,36 +17,36 @@ System.register(['angular2/core', './car-detail.component'], function(exports_1,
             },
             function (car_detail_component_1_1) {
                 car_detail_component_1 = car_detail_component_1_1;
+            },
+            function (car_service_1_1) {
+                car_service_1 = car_service_1_1;
             }],
         execute: function() {
             CarComponent = (function () {
-                function CarComponent() {
+                function CarComponent(_carService) {
+                    this._carService = _carService;
                     this.title = "Cadastro de veiculos";
-                    this.cars = Cars;
                 }
+                CarComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this._carService.getCars()
+                        .then(function (cars) { return _this.cars = cars; });
+                };
                 CarComponent.prototype.onSelect = function (car) {
                     this.selectedCar = car;
                 };
                 CarComponent = __decorate([
                     core_1.Component({
-                        selector: 'my-car',
+                        selector: 'car-master',
                         templateUrl: './app/views/cars-master.html',
-                        directives: [car_detail_component_1.CarDetailComponent]
+                        directives: [car_detail_component_1.CarDetailComponent],
+                        providers: [car_service_1.CarService]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [car_service_1.CarService])
                 ], CarComponent);
                 return CarComponent;
-            }());
+            })();
             exports_1("CarComponent", CarComponent);
-            Cars = [
-                { id: 1, brand: "BMW", model: "X6" },
-                { id: 2, brand: "BMW", model: "X1" },
-                { id: 3, brand: "Volkswagen", model: "Golf GTI" },
-                { id: 4, brand: "Chevrolet", model: "Cruze" },
-                { id: 5, brand: "Ford", model: "Fusion" },
-                { id: 6, brand: "Fiat", model: "Bravo" },
-                { id: 7, brand: "Mercedes", model: "C180" }
-            ];
         }
     }
 });
