@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', '../my-services/car-service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,24 +8,35 @@ System.register(['angular2/core'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, router_1, car_service_1;
     var CarDetailComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (car_service_1_1) {
+                car_service_1 = car_service_1_1;
             }],
         execute: function() {
             CarDetailComponent = (function () {
-                function CarDetailComponent() {
+                function CarDetailComponent(_routeParams, _carService) {
+                    this._routeParams = _routeParams;
+                    this._carService = _carService;
                 }
+                CarDetailComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    var id = this._routeParams.get("id");
+                    this._carService.getCar(id).then(function (car) { return _this.car = car; });
+                };
                 CarDetailComponent = __decorate([
                     core_1.Component({
-                        selector: 'car-detail',
-                        templateUrl: 'app/views/car-detail.html',
-                        inputs: ['car']
+                        templateUrl: 'app/views/car-detail.html'
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.RouteParams, car_service_1.CarService])
                 ], CarDetailComponent);
                 return CarDetailComponent;
             })();
